@@ -1,0 +1,40 @@
+{
+  "name": "edofre/laravel-ns-api",
+  "description": "Laravel wrapper for the NS API",
+  "require": {
+    "php": ">=5.6.4",
+    "laravel/framework": "5.3.*"
+  },
+  "keywords": [
+    "NS",
+    "API",
+    "trein",
+    "laravel"
+  ],
+  "homepage": "https://github.com/edofre/laravel-ns-api",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Edo Freriks",
+      "email": "edofre@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Edofre\\NsApi\\": "src"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php artisan vendor:publish --tag=config",
+    ],
+    "post-update-cmd": [
+      "php artisan vendor:publish --tag=config",
+    ]
+  }
+}
