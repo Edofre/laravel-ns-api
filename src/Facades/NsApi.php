@@ -2,6 +2,7 @@
 
 namespace Edofre\NsApi\Facades;
 
+use Edofre\Fullcalendar\NsApiServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,6 +16,6 @@ class NsApi extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-ns-api';
+        return NsApiServiceProvider::IDENTIFIER;
     }
 }
