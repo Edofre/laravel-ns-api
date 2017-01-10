@@ -1,21 +1,12 @@
 <?php
 
-namespace Edofre\NsApi\Facades;
-
-use Edofre\Fullcalendar\NsApiServiceProvider;
-use Illuminate\Support\Facades\Facade;
+namespace Edofre\NsApi;
 
 /**
  * Class NsApi
- * @package Edofre\NsApi\Facades
+ * @package Edofre\NsApi
  */
-class NsApi extends Facade
+class NsApi
 {
-    /**
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return NsApiServiceProvider::IDENTIFIER;
-    }
+
 }
