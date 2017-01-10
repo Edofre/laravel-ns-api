@@ -1,6 +1,6 @@
 <?php
 
-namespace Edofre\Fullcalendar;
+namespace Edofre\NsApi;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -2,7 +2,7 @@
 
 namespace Edofre\NsApi\Facades;
 
-use Edofre\NsApi\NsApiServiceProvider;
+use Edofre\Fullcalendar\NsApiServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 /**
