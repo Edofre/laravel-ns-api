@@ -32,7 +32,7 @@ class NsApiServiceProvider extends ServiceProvider
     {
         // publish the config file
         $this->publishes([
-            __DIR__ . '/config/laravel-ns-api.php' => config_path('laravel-ns-api.php'),
+            __DIR__ . '/config/ns-api.php' => config_path('ns-api.php'),
         ], 'config');
     }
 
