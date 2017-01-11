@@ -3,6 +3,7 @@
 namespace Edofre\NsApi;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 /**
  * Class NsApi
@@ -35,7 +36,24 @@ class NsApi
         $this->username = config('ns-api.username');
         $this->password = config('ns-api.password');
     }
-    
+
+    public function getStations()
+    {
+        $result = $this->makeRequest(self::ENDPOINT_STATIONS);
+        var_dump($result);
+        exit;
+
+
+        $stations = new Collection();
+        foreach ($xml as $stationXmlObject) {
+            $stations->push(Station::fromXML($stationXmlObject));
+        }
+
+        var_dump($stations);exit;
+
+        return $this->toStations($result->xml());
+    }
+
     /**
      * @param $request
      * @return \Psr\Http\Message\ResponseInterface
