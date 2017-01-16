@@ -10,21 +10,21 @@ use SimpleXMLElement;
  */
 class Station
 {
-    /** @var string */
+    /** @var  string */
     public $code;
-    /** @var string */
+    /** @var  string */
     public $type;
-    /** @var array short/middle/long */
+    /** @var  array short/middle/long */
     public $names;
     /** @var  string */
     public $country;
     /** @var  string */
     public $uic_code;
-    /** @var */
+    /** @var  string */
     public $lat;
-    /** @var */
+    /** @var  string */
     public $lon;
-    /** @var */
+    /** @var  array */
     public $aliases;
 
     /**
