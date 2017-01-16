@@ -2,6 +2,7 @@
 
 namespace Edofre\NsApi;
 
+use Edofre\NsApi\Responses\Station;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
@@ -15,6 +16,7 @@ class NsApi
     const API_URL = 'http://webservices.ns.nl/';
     /** Endpoints */
     const ENDPOINT_STATIONS = '/ns-api-stations-v2';
+    const HTTP_SUCCESS = 200;
     /** @var Client */
     private $client;
     /** @var */
@@ -37,21 +39,22 @@ class NsApi
         $this->password = config('ns-api.password');
     }
 
+    /**
+     * @return Collection
+     */
     public function getStations()
     {
         $result = $this->makeRequest(self::ENDPOINT_STATIONS);
-        var_dump($result);
-        exit;
-
-
         $stations = new Collection();
-        foreach ($xml as $stationXmlObject) {
-            $stations->push(Station::fromXML($stationXmlObject));
+
+        if ($result->getStatusCode() == self::HTTP_SUCCESS) {
+            $xml = simplexml_load_string($result->getBody()->getContents());
+            foreach ($xml as $xml_item) {
+                $stations->push(Station::createFromXml($xml_item));
+            }
         }
 
-        var_dump($stations);exit;
-
-        return $this->toStations($result->xml());
+        return $stations;
     }
 
     /**
