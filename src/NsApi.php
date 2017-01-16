@@ -2,6 +2,7 @@
 
 namespace Edofre\NsApi;
 
+use Edofre\NsApi\Responses\DepartingTrain;
 use Edofre\NsApi\Responses\Station;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
@@ -16,7 +17,10 @@ class NsApi
     const API_URL = 'http://webservices.ns.nl/';
     /** Endpoints */
     const ENDPOINT_STATIONS = '/ns-api-stations-v2';
+    const ENDPOINT_DEPARTURES = '/ns-api-avt';
+    /** HTTP STATUS CODES */
     const HTTP_SUCCESS = 200;
+
     /** @var Client */
     private $client;
     /** @var */
@@ -58,16 +62,44 @@ class NsApi
     }
 
     /**
-     * @param $request
+     * @param       $request
+     * @param array $options
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function makeRequest($request)
+    private function makeRequest($request, $options = [])
     {
-        return $this->client->get($request, [
-            'auth' => [
-                $this->username,
-                $this->password,
+        $options = array_merge(
+            $options,
+            [
+                'auth' => [
+                    $this->username,
+                    $this->password,
+                ],
+            ]
+        );
+        return $this->client->get($request, $options);
+    }
+
+    /**
+     * @param Station $station
+     * @return Collection
+     */
+    public function getDepartures(Station $station)
+    {
+        $result = $this->makeRequest(self::ENDPOINT_DEPARTURES, [
+            'query' => [
+                'station' => $station->code,
             ],
         ]);
+
+        $departing_trains = new Collection();
+        if ($result->getStatusCode() == self::HTTP_SUCCESS) {
+            $xml = simplexml_load_string($result->getBody()->getContents());
+            foreach ($xml as $xml_item) {
+                $departing_trains->push(DepartingTrain::createFromXml($xml_item));
+            }
+        }
+
+        return $departing_trains;
     }
 }
