@@ -2,9 +2,11 @@
 
 namespace Edofre\NsApi\Responses;
 
+use SimpleXMLElement;
+
 /**
  * Class Station
- * @package Edofre\NsApiResponses
+ * @package Edofre\NsApi\Responses
  */
 class Station
 {
@@ -46,5 +48,23 @@ class Station
         $this->lat = $lat;
         $this->lon = $lon;
         $this->aliases = $aliases;
+    }
+
+    /**
+     * @param SimpleXMLElement $xml
+     * @return Station
+     */
+    public static function createFromXml(SimpleXMLElement $xml)
+    {
+        return new self(
+            (string)$xml->Code,
+            (string)$xml->Type,
+            (array)$xml->Namen,
+            (string)$xml->Land,
+            (string)$xml->UICCode,
+            (string)$xml->Lat,
+            (string)$xml->Lon,
+            (array)$xml->Synoniemen->Synoniem
+        );
     }
 }
