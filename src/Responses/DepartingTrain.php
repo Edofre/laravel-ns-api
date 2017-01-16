@@ -53,4 +53,23 @@ class DepartingTrain
         $this->track_changed = $track_changed;
         $this->travel_tip = $travel_tip;
     }
+
+    /**
+     * @param SimpleXMLElement $xml
+     * @return DepartingTrain
+     */
+    public static function createFromXml(SimpleXMLElement $xml)
+    {
+        var_dump($xml);exit;
+//        return new self(
+//            (string)$xml->Code,
+//            (string)$xml->Type,
+//            (array)$xml->Namen,
+//            (string)$xml->Land,
+//            (string)$xml->UICCode,
+//            (string)$xml->Lat,
+//            (string)$xml->Lon,
+//            (array)$xml->Synoniemen->Synoniem
+//        );
+    }
 }
