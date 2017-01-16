@@ -5,41 +5,52 @@ namespace Edofre\NsApi\Responses;
 use SimpleXMLElement;
 
 /**
- * Class Departure
+ * Class DepartingTrain
  * @package Edofre\NsApi\Responses
  */
-class Departure
+class DepartingTrain
 {
-
-<RitNummer>14982</RitNummer>
-<VertrekTijd>2017-01-16T22:44:00+0100</VertrekTijd>
-<EindBestemming>Hilversum</EindBestemming>
-<TreinSoort>Sprinter</TreinSoort>
-<RouteTekst>Overvecht</RouteTekst>
-<Vervoerder>NS</Vervoerder>
-<VertrekSpoor wijziging="false">4</VertrekSpoor>
-<ReisTip>Stopt niet in Hilversum Media Park en Bussum Zuid</ReisTip>
-
-    function __construct($code)
-    {
-        $this->code = $code;
-    }
+    /** @var  string */
+    public $ride_number;
+    /** @var  string */
+    public $departure_time;
+    /** @var  string */
+    public $final_destination;
+    /** @var  string */
+    public $train_type;
+    /** @var  string */
+    public $route_text;
+    /** @var  string */
+    public $carrier;
+    /** @var  string */
+    public $track;
+    /** @var  boolean */
+    public $track_changed = false;
+    /** @var  string */
+    public $travel_tip;
 
     /**
-     * @param SimpleXMLElement $xml
-     * @return Station
+     * DepartingTrain constructor.
+     * @param $ride_number
+     * @param $departure_time
+     * @param $final_destination
+     * @param $train_type
+     * @param $route_text
+     * @param $carrier
+     * @param $track
+     * @param $track_changed
+     * @param $travel_tip
      */
-    public static function createFromXml(SimpleXMLElement $xml)
+    function __construct($ride_number, $departure_time, $final_destination, $train_type, $route_text, $carrier, $track, $track_changed, $travel_tip)
     {
-        return new self(
-            (string)$xml->Code,
-            (string)$xml->Type,
-            (array)$xml->Namen,
-            (string)$xml->Land,
-            (string)$xml->UICCode,
-            (string)$xml->Lat,
-            (string)$xml->Lon,
-            (array)$xml->Synoniemen->Synoniem
-        );
+        $this->code = $ride_number;
+        $this->departure_time = $departure_time;
+        $this->final_destination = $final_destination;
+        $this->train_type = $train_type;
+        $this->route_text = $route_text;
+        $this->carrier = $carrier;
+        $this->track = $track;
+        $this->track_changed = $track_changed;
+        $this->travel_tip = $travel_tip;
     }
 }
