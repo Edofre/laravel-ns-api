@@ -1,6 +1,6 @@
 <?php
 
-namespace Edofre\NsApiResponses;
+namespace Edofre\NsApi\Responses;
 
 /**
  * Class Station
