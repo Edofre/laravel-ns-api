@@ -48,8 +48,8 @@ class NsApi
      */
     public function getStations()
     {
-        $result = $this->makeRequest(self::ENDPOINT_STATIONS);
         $stations = new Collection();
+        $result = $this->makeRequest(self::ENDPOINT_STATIONS);
 
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
@@ -86,13 +86,13 @@ class NsApi
      */
     public function getDepartures(Station $station)
     {
+        $departing_trains = new Collection();
         $result = $this->makeRequest(self::ENDPOINT_DEPARTURES, [
             'query' => [
                 'station' => $station->code,
             ],
         ]);
 
-        $departing_trains = new Collection();
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml as $xml_item) {
