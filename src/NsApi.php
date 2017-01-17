@@ -3,6 +3,7 @@
 namespace Edofre\NsApi;
 
 use Edofre\NsApi\Responses\DepartingTrain;
+use Edofre\NsApi\Responses\Disturbance;
 use Edofre\NsApi\Responses\Station;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
