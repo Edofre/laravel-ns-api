@@ -60,16 +60,16 @@ class DepartingTrain
      */
     public static function createFromXml(SimpleXMLElement $xml)
     {
-        var_dump($xml);exit;
-//        return new self(
-//            (string)$xml->Code,
-//            (string)$xml->Type,
-//            (array)$xml->Namen,
-//            (string)$xml->Land,
-//            (string)$xml->UICCode,
-//            (string)$xml->Lat,
-//            (string)$xml->Lon,
-//            (array)$xml->Synoniemen->Synoniem
-//        );
+        return new self(
+            (string)$xml->RitNummer,
+            (string)$xml->VertrekTijd,
+            (string)$xml->VertrekVertraging,
+            (string)$xml->VertrekVertragingTekst,
+            (string)$xml->EindBestemming,
+            (string)$xml->TreinSoort,
+            (string)$xml->RouteTekst,
+            (string)$xml->Vervoerder,
+            (string)$xml->VertrekSpoor
+        );
     }
 }
