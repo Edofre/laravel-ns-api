@@ -14,6 +14,10 @@ class DepartingTrain
     public $ride_number;
     /** @var  string */
     public $departure_time;
+    /** @var */
+    public $departure_delay;
+    /** @var */
+    public $departure_delay_title;
     /** @var  string */
     public $final_destination;
     /** @var  string */
@@ -33,6 +37,8 @@ class DepartingTrain
      * DepartingTrain constructor.
      * @param $ride_number
      * @param $departure_time
+     * @param $departure_delay
+     * @param $departure_delay_title
      * @param $final_destination
      * @param $train_type
      * @param $route_text
@@ -41,10 +47,12 @@ class DepartingTrain
      * @param $track_changed
      * @param $travel_tip
      */
-    function __construct($ride_number, $departure_time, $final_destination, $train_type, $route_text, $carrier, $track, $track_changed, $travel_tip)
+    function __construct($ride_number, $departure_time, $departure_delay, $departure_delay_title, $final_destination, $train_type, $route_text, $carrier, $track, $track_changed, $travel_tip)
     {
         $this->code = $ride_number;
         $this->departure_time = $departure_time;
+        $this->departure_delay = $departure_delay;
+        $this->departure_delay_title = $departure_delay_title;
         $this->final_destination = $final_destination;
         $this->train_type = $train_type;
         $this->route_text = $route_text;
@@ -69,7 +77,9 @@ class DepartingTrain
             (string)$xml->TreinSoort,
             (string)$xml->RouteTekst,
             (string)$xml->Vervoerder,
-            (string)$xml->VertrekSpoor
+            (string)$xml->VertrekSpoor,
+            (string)$xml->VertrekSpoor['wijziging'] == 'false' ? false : true,
+            (string)$xml->ReisTip
         );
     }
 }
