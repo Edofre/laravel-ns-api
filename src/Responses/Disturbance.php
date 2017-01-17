@@ -17,6 +17,10 @@ class Disturbance
     /** @var  string */
     public $period;
     /** @var  string */
+    public $reason;
+    /** @var  string */
+    public $advice;
+    /** @var  string */
     public $message;
     /** @var  boolean */
     public $planned;
@@ -29,11 +33,13 @@ class Disturbance
      * @param $message
      * @param $planned
      */
-    function __construct($id, $route, $period, $message, $planned)
+    function __construct($id, $route, $period, $reason, $advice, $message, $planned)
     {
         $this->id = $id;
         $this->route = $route;
         $this->period = $period;
+        $this->reason = $reason;
+        $this->advice = $advice;
         $this->message = $message;
         $this->planned = $planned;
     }
@@ -48,6 +54,8 @@ class Disturbance
             (string)$xml->id,
             (string)$xml->Traject,
             (array)$xml->Periode,
+            (array)$xml->Reden,
+            (array)$xml->Advies,
             (array)$xml->Bericht,
             false
         );
