@@ -16,8 +16,9 @@ class NsApi
     /** API URL */
     const API_URL = 'http://webservices.ns.nl/';
     /** Endpoints */
-    const ENDPOINT_STATIONS = '/ns-api-stations-v2';
     const ENDPOINT_DEPARTURES = '/ns-api-avt';
+    const ENDPOINT_DISTURBANCES = '/ns-api-storingen';
+    const ENDPOINT_STATIONS = '/ns-api-stations-v2';
     /** HTTP STATUS CODES */
     const HTTP_SUCCESS = 200;
 
@@ -97,6 +98,42 @@ class NsApi
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml as $xml_item) {
                 $departing_trains->push(DepartingTrain::createFromXml($xml_item));
+            }
+        }
+
+        return $departing_trains;
+    }
+
+    /**
+     * @param Station $station
+     * @param boolean $actual
+     * @param boolean $unplanned
+     * @return Collection
+     */
+    public function getDisturbances(Station $station, $actual = null, $unplanned = null)
+    {
+        $departing_trains = new Collection();
+
+        $request_options = [
+            'query' => [
+                'station' => $station->code,
+            ],
+        ];
+
+        if (!is_null($actual)) {
+            $request_options['query']['actual'] = $actual;
+        }
+
+        if (!is_null($unplanned)) {
+            $request_options['query']['unplanned'] = $unplanned;
+        }
+
+        $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
+
+        if ($result->getStatusCode() == self::HTTP_SUCCESS) {
+            $xml = simplexml_load_string($result->getBody()->getContents());
+            foreach ($xml as $xml_item) {
+                $departing_trains->push(Disturbance::createFromXml($xml_item));
             }
         }
 
