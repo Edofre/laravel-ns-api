@@ -122,13 +122,12 @@ class NsApi
         ];
 
         if (!is_null($actual)) {
-            $request_options['query']['actual'] = $actual;
+            $request_options['query']['actual'] = ($actual) ? 'true' : 'false';
         }
-
         if (!is_null($unplanned)) {
-            $request_options['query']['unplanned'] = $unplanned;
+            $request_options['query']['unplanned'] = ($unplanned) ? 'true' : 'false';
         }
-
+        
         $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
 
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
