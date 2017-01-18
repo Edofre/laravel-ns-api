@@ -54,10 +54,10 @@ class Disturbance
         return new self(
             (string)$xml->id,
             (string)$xml->Traject,
-            (array)$xml->Periode,
-            (array)$xml->Reden,
-            (array)$xml->Advies,
-            (array)$xml->Bericht,
+            (string)$xml->Periode,
+            (string)$xml->Reden,
+            (string)$xml->Advies,
+            (string)$xml->Bericht,
             $planned
         );
     }
