@@ -46,9 +46,10 @@ class Disturbance
 
     /**
      * @param SimpleXMLElement $xml
+     * @param boolean          $planned
      * @return Disturbance
      */
-    public static function createFromXml(SimpleXMLElement $xml)
+    public static function createFromXml(SimpleXMLElement $xml, $planned)
     {
         return new self(
             (string)$xml->id,
@@ -57,7 +58,7 @@ class Disturbance
             (array)$xml->Reden,
             (array)$xml->Advies,
             (array)$xml->Bericht,
-            false
+            $planned
         );
     }
 }
