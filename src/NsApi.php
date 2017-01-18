@@ -127,13 +127,21 @@ class NsApi
         if (!is_null($unplanned)) {
             $request_options['query']['unplanned'] = ($unplanned) ? 'true' : 'false';
         }
-        
+
         $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
 
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
-            foreach ($xml as $xml_item) {
-                $departing_trains->push(Disturbance::createFromXml($xml_item));
+
+            foreach ($xml->Ongepland as $xml_item) {
+                foreach ($xml_item->Storing as $xml_disturbance_item) {
+                    $departing_trains->push(Disturbance::createFromXml($xml_disturbance_item, false));
+                }
+            }
+            foreach ($xml->Gepland as $xml_item) {
+                foreach ($xml_item->Storing as $xml_disturbance_item) {
+                    $departing_trains->push(Disturbance::createFromXml($xml_disturbance_item, true));
+                }
             }
         }
 
