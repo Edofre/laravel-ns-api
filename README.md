@@ -30,3 +30,9 @@ php artisan vendor:publish --tag=config
 ```
 
 ### Example
+
+#### Get all the stations
+```php
+$api = new NsApi();
+$stations = $api->getStations();
+```
