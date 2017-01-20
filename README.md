@@ -36,3 +36,10 @@ php artisan vendor:publish --tag=config
 $api = new NsApi();
 $stations = $api->getStations();
 ```
+
+#### Get all the departing trains from a station
+```php
+$api = new NsApi();
+$station = new Station('UT', '','','','','','','','','');
+$departing_trains = $api->getDepartures($station);
+```
