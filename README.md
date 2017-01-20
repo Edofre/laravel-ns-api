@@ -43,3 +43,12 @@ $api = new NsApi();
 $station = new Station('UT', '','','','','','','','','');
 $departing_trains = $api->getDepartures($station);
 ```
+
+#### Get all the disturbances from a station
+```php
+$api = new NsApi();
+$station = new Station('ut', '', '', '', '', '', '', '', '', '');
+// We want the actual disturbances and not the unplanned disturbances
+$disturbances = $api->getDisturbances($station, true , false);
+```
+
