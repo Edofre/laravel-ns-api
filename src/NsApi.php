@@ -20,6 +20,7 @@ class NsApi
     const ENDPOINT_DEPARTURES = '/ns-api-avt';
     const ENDPOINT_DISTURBANCES = '/ns-api-storingen';
     const ENDPOINT_STATIONS = '/ns-api-stations-v2';
+    const ENDPOINT_ADVICE = '/ns-api-treinplanner';
     /** HTTP STATUS CODES */
     const HTTP_SUCCESS = 200;
 
