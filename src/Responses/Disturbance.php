@@ -26,7 +26,7 @@ class Disturbance
     public $planned;
 
     /**
-     * Station constructor.
+     * Disturbance constructor.
      * @param $id
      * @param $route
      * @param $period
