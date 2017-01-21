@@ -148,4 +148,53 @@ class NsApi
 
         return $departing_trains;
     }
+
+    /**
+     * @param Station      $from_station
+     * @param Station      $to_station
+     * @param Station|null $via_station
+     * @param int          $previous_advices
+     * @param int          $next_advices
+     * @param null         $datetime
+     * @param bool         $departure
+     * @param bool         $hsl_allowed
+     * @param bool         $year_card
+     * @return Collection
+     */
+    public function getAdvice(Station $from_station, Station $to_station, Station $via_station = null, $previous_advices = 5, $next_advices = 5, $datetime = null, $departure = true, $hsl_allowed = true, $year_card = false)
+    {
+        $advices = new Collection();
+
+        $request_options = [
+            'query' => [
+                'fromStation'     => $from_station->code,
+                'toStation'       => $to_station->code,
+                'previousAdvices' => $previous_advices,
+                'nextAdvices'     => $next_advices,
+                'departure'       => ($departure) ? 'true' : 'false',
+                'hslAllowed'      => ($hsl_allowed) ? 'true' : 'false',
+                'yearCard'        => ($year_card) ? 'true' : 'false',
+            ],
+        ];
+
+        if (!is_null($via_station)) {
+            $request_options['query']['viaStation'] = $via_station->code;
+        }
+
+        if (!is_null($datetime)) {
+            $request_options['query']['dateTime'] = $datetime;
+        }
+
+        $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
+
+        if ($result->getStatusCode() == self::HTTP_SUCCESS) {
+            $xml = simplexml_load_string($result->getBody()->getContents());
+
+            foreach ($xml->Ongepland as $xml_item) {
+                $advices->push(Advice::createFromXml($xml_item));
+            }
+        }
+
+        return $advices;
+    }
 }
