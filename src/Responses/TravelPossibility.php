@@ -51,7 +51,7 @@ class TravelPossibility
 
     /**
      * @param SimpleXMLElement $xml
-     * @return Advice
+     * @return TravelPossibility
      */
     public static function createFromXml(SimpleXMLElement $xml)
     {
