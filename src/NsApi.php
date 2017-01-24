@@ -198,4 +198,16 @@ class NsApi
 
         return $advices;
     }
+
+    /**
+     * @param Station      $from_station
+     * @param Station      $to_station
+     * @param Station|null $via_station
+     * @param int          $datetime
+     * @return Collection
+     */
+    public function getPrices(Station $from_station, Station $to_station, Station $via_station = null, $datetime = null)
+    {
+
+    }
 }
