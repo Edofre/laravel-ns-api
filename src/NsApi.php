@@ -21,14 +21,15 @@ class NsApi
     const ENDPOINT_DISTURBANCES = '/ns-api-storingen';
     const ENDPOINT_STATIONS = '/ns-api-stations-v2';
     const ENDPOINT_ADVICE = '/ns-api-treinplanner';
+    const ENDPOINT_PRICES = '/ns-api-prijzen-v3';
     /** HTTP STATUS CODES */
     const HTTP_SUCCESS = 200;
 
-    /** @var Client */
+    /** @var  Client */
     private $client;
-    /** @var */
+    /** @var  string */
     private $username;
-    /** @var */
+    /** @var  string */
     private $password;
 
     /**
