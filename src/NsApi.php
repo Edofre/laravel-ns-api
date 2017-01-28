@@ -2,6 +2,7 @@
 
 namespace Edofre\NsApi;
 
+use Edofre\NsApi\Responses\CarrierChoice;
 use Edofre\NsApi\Responses\DepartingTrain;
 use Edofre\NsApi\Responses\Disturbance;
 use Edofre\NsApi\Responses\Station;
@@ -208,6 +209,32 @@ class NsApi
      */
     public function getPrices(Station $from_station, Station $to_station, Station $via_station = null, $datetime = null)
     {
+        $advices = new Collection();
 
+        $request_options = [
+            'query' => [
+                'fromStation'     => $from_station->code,
+                'toStation'       => $to_station->code,
+            ],
+        ];
+
+        if (!is_null($via_station)) {
+            $request_options['query']['viaStation'] = $via_station->code;
+        }
+
+        if (!is_null($datetime)) {
+            $request_options['query']['dateTime'] = $datetime;
+        }
+
+        $result = $this->makeRequest(self::ENDPOINT_PRICES, $request_options);
+
+        if ($result->getStatusCode() == self::HTTP_SUCCESS) {
+            $xml = simplexml_load_string($result->getBody()->getContents());
+            foreach ($xml->Ongepland as $xml_item) {
+                $advices->push(CarrierChoice::createFromXml($xml_item));
+            }
+        }
+
+        return $advices;
     }
 }
