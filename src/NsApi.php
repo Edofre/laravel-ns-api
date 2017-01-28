@@ -56,6 +56,7 @@ class NsApi
         $stations = new Collection();
         $result = $this->makeRequest(self::ENDPOINT_STATIONS);
 
+        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml as $xml_item) {
@@ -98,6 +99,7 @@ class NsApi
             ],
         ]);
 
+        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml as $xml_item) {
@@ -132,10 +134,9 @@ class NsApi
         }
 
         $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
-
+        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
-
             foreach ($xml->Ongepland as $xml_item) {
                 foreach ($xml_item->Storing as $xml_disturbance_item) {
                     $departing_trains->push(Disturbance::createFromXml($xml_disturbance_item, false));
@@ -188,10 +189,9 @@ class NsApi
         }
 
         $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
-
+        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
-
             foreach ($xml->Ongepland as $xml_item) {
                 $advices->push(Advice::createFromXml($xml_item));
             }
@@ -227,10 +227,10 @@ class NsApi
         }
 
         $result = $this->makeRequest(self::ENDPOINT_PRICES, $request_options);
-
+        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
-            foreach ($xml->Ongepland as $xml_item) {
+            foreach ($xml->VervoerderKeuze as $xml_item) {
                 $advices->push(CarrierChoice::createFromXml($xml_item));
             }
         }
