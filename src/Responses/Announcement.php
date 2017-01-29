@@ -12,7 +12,7 @@ class Announcement
 {
     /** @var  string */
     public $id;
-    /** @var  string */
+    /** @var  boolean */
     public $severity;
     /** @var  TravelSection[] */
     public $announcement;
@@ -26,7 +26,7 @@ class Announcement
     function __construct($id, $severity, $announcement)
     {
         $this->id = $id;
-        $this->severoty = $severity;
+        $this->severity = $severity;
         $this->announcement = $announcement;
     }
 
@@ -38,7 +38,7 @@ class Announcement
     {
         return new self(
             (string)$xml->Id,
-            (string)$xml->Ernstig,
+            (boolean)$xml->Ernstig,
             (string)$xml->Text
         );
     }
