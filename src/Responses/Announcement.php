@@ -14,7 +14,7 @@ class Announcement
     public $id;
     /** @var  boolean */
     public $severity;
-    /** @var  TravelSection[] */
+    /** @var  string */
     public $announcement;
 
     /**
