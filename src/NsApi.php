@@ -6,6 +6,7 @@ use Edofre\NsApi\Responses\CarrierChoice;
 use Edofre\NsApi\Responses\DepartingTrain;
 use Edofre\NsApi\Responses\Disturbance;
 use Edofre\NsApi\Responses\Station;
+use Edofre\NsApi\Responses\TravelPossibility;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
@@ -56,7 +57,6 @@ class NsApi
         $stations = new Collection();
         $result = $this->makeRequest(self::ENDPOINT_STATIONS);
 
-        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml as $xml_item) {
@@ -99,7 +99,6 @@ class NsApi
             ],
         ]);
 
-        // Make sure we have a proper result
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml as $xml_item) {
@@ -134,9 +133,10 @@ class NsApi
         }
 
         $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
-        // Make sure we have a proper result
+
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
+
             foreach ($xml->Ongepland as $xml_item) {
                 foreach ($xml_item->Storing as $xml_disturbance_item) {
                     $departing_trains->push(Disturbance::createFromXml($xml_disturbance_item, false));
@@ -170,13 +170,13 @@ class NsApi
 
         $request_options = [
             'query' => [
-                'fromStation'     => $from_station->code,
-                'toStation'       => $to_station->code,
-                'previousAdvices' => $previous_advices,
-                'nextAdvices'     => $next_advices,
-                'departure'       => ($departure) ? 'true' : 'false',
-                'hslAllowed'      => ($hsl_allowed) ? 'true' : 'false',
-                'yearCard'        => ($year_card) ? 'true' : 'false',
+                'fromStation' => $from_station->code,
+                'toStation'   => $to_station->code,
+                //                'previousAdvices' => $previous_advices,
+                //                'nextAdvices'     => $next_advices,
+                //                'departure'       => ($departure) ? 'true' : 'false',
+                //                'hslAllowed'      => ($hsl_allowed) ? 'true' : 'false',
+                //                'yearCard'        => ($year_card) ? 'true' : 'false',
             ],
         ];
 
@@ -188,12 +188,12 @@ class NsApi
             $request_options['query']['dateTime'] = $datetime;
         }
 
-        $result = $this->makeRequest(self::ENDPOINT_DISTURBANCES, $request_options);
-        // Make sure we have a proper result
+        $result = $this->makeRequest(self::ENDPOINT_ADVICE, $request_options);
+
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
-            foreach ($xml->Ongepland as $xml_item) {
-                $advices->push(Advice::createFromXml($xml_item));
+            foreach ($xml->ReisMogelijkheid as $xml_item) {
+                $advices->push(TravelPossibility::createFromXml($xml_item));
             }
         }
 
@@ -213,8 +213,8 @@ class NsApi
 
         $request_options = [
             'query' => [
-                'fromStation'     => $from_station->code,
-                'toStation'       => $to_station->code,
+                'fromStation' => $from_station->code,
+                'toStation'   => $to_station->code,
             ],
         ];
 
@@ -227,7 +227,7 @@ class NsApi
         }
 
         $result = $this->makeRequest(self::ENDPOINT_PRICES, $request_options);
-        // Make sure we have a proper result
+
         if ($result->getStatusCode() == self::HTTP_SUCCESS) {
             $xml = simplexml_load_string($result->getBody()->getContents());
             foreach ($xml->VervoerderKeuze as $xml_item) {
