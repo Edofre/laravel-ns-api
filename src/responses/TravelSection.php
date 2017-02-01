@@ -60,7 +60,6 @@ class TravelSection
             (string)$xml->Vervoerder,
             (string)$xml->VervoerType,
             (string)$xml->RitNummer,
-            (string)$xml->RitNummer,
             (string)$xml->Status,
             $travel_stops
         );
