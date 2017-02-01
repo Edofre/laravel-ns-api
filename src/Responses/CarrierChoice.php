@@ -42,7 +42,7 @@ class CarrierChoice
         }
 
         return new self(
-            (string)$xml['Naam'],
+            (string)$xml['naam'],
             (string)$xml->Tariefeenheden,
             $travel_types
         );
