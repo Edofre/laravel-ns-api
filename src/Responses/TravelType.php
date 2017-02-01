@@ -31,9 +31,16 @@ class TravelType
      */
     public static function createFromXml(SimpleXMLElement $xml)
     {
+        $travel_classes = [];
+        if (!empty($xml->ReisKlasse)) {
+            foreach ($xml->ReisKlasse as $travel_class) {
+                $travel_classes[] = TravelClass::createFromXml($travel_class);
+            }
+        }
+
         return new self(
-            (string)$xml->Naam,
-            []
+            (string)$xml['Naam'],
+            $travel_classes
         );
     }
 }

@@ -34,7 +34,6 @@ class CarrierChoice
      */
     public static function createFromXml(SimpleXMLElement $xml)
     {
-
         $travel_types = [];
         if (!empty($xml->ReisType)) {
             foreach ($xml->ReisType as $travel_type) {
