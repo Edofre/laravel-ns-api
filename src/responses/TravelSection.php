@@ -30,14 +30,16 @@ class TravelSection
      * @param $carrier_type
      * @param $ride_number
      * @param $status
+     * @param $travel_stops
      */
-    function __construct($travel_type, $carrier, $carrier_type, $ride_number, $status)
+    function __construct($travel_type, $carrier, $carrier_type, $ride_number, $status, $travel_stops)
     {
         $this->travel_type = $travel_type;
         $this->carrier = $carrier;
         $this->carrier_type = $carrier_type;
         $this->ride_number = $ride_number;
         $this->status = $status;
+        $this->travel_stops = $travel_stops;
     }
 
     /**
@@ -46,13 +48,21 @@ class TravelSection
      */
     public static function createFromXml(SimpleXMLElement $xml)
     {
+        $travel_stops = [];
+        if(!empty($xml->ReisStop)) {
+            foreach($xml->ReisStop as $travel_stop) {
+                $travel_stops[] = TravelStop::createFromXml($travel_stop);
+            }
+        }
+
         return new self(
-            (string)$xml->reisSoort,
+            (string)$xml['reisSoort'],
             (string)$xml->Vervoerder,
             (string)$xml->VervoerType,
             (string)$xml->RitNummer,
             (string)$xml->RitNummer,
-            (string)$xml->Status
+            (string)$xml->Status,
+            $travel_stops
         );
     }
 }
