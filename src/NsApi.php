@@ -170,13 +170,13 @@ class NsApi
 
         $request_options = [
             'query' => [
-                'fromStation' => $from_station->code,
-                'toStation'   => $to_station->code,
-                //                'previousAdvices' => $previous_advices,
-                //                'nextAdvices'     => $next_advices,
-                //                'departure'       => ($departure) ? 'true' : 'false',
-                //                'hslAllowed'      => ($hsl_allowed) ? 'true' : 'false',
-                //                'yearCard'        => ($year_card) ? 'true' : 'false',
+                'fromStation'     => $from_station->code,
+                'toStation'       => $to_station->code,
+                'previousAdvices' => $previous_advices,
+                'nextAdvices'     => $next_advices,
+                'departure'       => ($departure) ? 'true' : 'false',
+                'hslAllowed'      => ($hsl_allowed) ? 'true' : 'false',
+                'yearCard'        => ($year_card) ? 'true' : 'false',
             ],
         ];
 
