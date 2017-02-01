@@ -34,10 +34,18 @@ class CarrierChoice
      */
     public static function createFromXml(SimpleXMLElement $xml)
     {
+
+        $travel_types = [];
+        if (!empty($xml->ReisType)) {
+            foreach ($xml->ReisType as $travel_type) {
+                $travel_types[] = TravelType::createFromXml($travel_type);
+            }
+        }
+
         return new self(
-            (string)$xml->Naam,
+            (string)$xml['Naam'],
             (string)$xml->Tariefeenheden,
-            []
+            $travel_types
         );
     }
 }
