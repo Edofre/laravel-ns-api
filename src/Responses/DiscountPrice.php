@@ -33,8 +33,8 @@ class DiscountPrice
     public static function createFromXml(SimpleXMLElement $xml)
     {
         return new self(
-            (string)$xml->Naam,
-            (string)$xml->Prijs
+            (string)$xml['name'],
+            (string)$xml['prijs'] // really NS?
         );
     }
 }
