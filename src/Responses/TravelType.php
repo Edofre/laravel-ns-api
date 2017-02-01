@@ -12,6 +12,7 @@ class TravelType
 {
     /** @var  string */
     public $name;
+    /** @var  array */
     public $travel_classes = [];
 
     /**
@@ -39,7 +40,7 @@ class TravelType
         }
 
         return new self(
-            (string)$xml['Naam'],
+            (string)$xml['name'],
             $travel_classes
         );
     }
