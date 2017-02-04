@@ -1,8 +1,10 @@
-# WIP WIP WIP 
-# Contents may be subject to change at any time
-# WIP WIP WIP
+# Laravel NS API wrapper
 
-# Laravel NS API
+[![Latest Stable Version](https://poser.pugx.org/edofre/laravel-ns-api/v/stable)](https://packagist.org/packages/edofre/laravel-ns-api)
+[![Total Downloads](https://poser.pugx.org/edofre/laravel-ns-api/downloads)](https://packagist.org/packages/edofre/laravel-ns-api)
+[![Latest Unstable Version](https://poser.pugx.org/edofre/laravel-ns-api/v/unstable)](https://packagist.org/packages/edofre/laravel-ns-api)
+[![License](https://poser.pugx.org/edofre/laravel-ns-api/license)](https://packagist.org/packages/edofre/laravel-ns-api)
+[![composer.lock](https://poser.pugx.org/edofre/laravel-ns-api/composerlock)](https://packagist.org/packages/edofre/laravel-ns-api)
 
 ## Installation
 
@@ -17,7 +19,7 @@ $ php composer.phar require edofre/laravel-ns-api
 or add
 
 ```
-"edofre/laravel-ns-api": "*"
+"edofre/laravel-ns-api": "v1.0.0"
 ```
 
 to the ```require``` section of your `composer.json` file.
@@ -28,6 +30,8 @@ Publish assets and configuration files
 ```
 php artisan vendor:publish --tag=config
 ```
+
+In the above configuration file you will need to enter your NS API username and password
 
 ### Example
 
@@ -52,3 +56,11 @@ $station = new Station('ut', '', '', '', '', '', '', '', '', '');
 $disturbances = $api->getDisturbances($station, true , false);
 ```
 
+#### Get the prices for a route
+```php
+$api = new NsApi();
+$from_station = new Station('ZL', '', '', '', '', '', '', '', '', '');
+$via_station = new Station('DH', '', '', '', '', '', '', '', '', '');
+$to_station = new Station('HT', '', '', '', '', '', '', '', '', '');
+$prices = $api->getPrices($from_station, $to_station, $via_station);
+```
