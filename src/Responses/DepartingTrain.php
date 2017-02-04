@@ -14,9 +14,9 @@ class DepartingTrain
     public $ride_number;
     /** @var  string */
     public $departure_time;
-    /** @var */
+    /** @var  string */
     public $departure_delay;
-    /** @var */
+    /** @var  string */
     public $departure_delay_title;
     /** @var  string */
     public $final_destination;
@@ -49,7 +49,7 @@ class DepartingTrain
      */
     function __construct($ride_number, $departure_time, $departure_delay, $departure_delay_title, $final_destination, $train_type, $route_text, $carrier, $track, $track_changed, $travel_tip)
     {
-        $this->code = $ride_number;
+        $this->ride_number = $ride_number;
         $this->departure_time = $departure_time;
         $this->departure_delay = $departure_delay;
         $this->departure_delay_title = $departure_delay_title;
