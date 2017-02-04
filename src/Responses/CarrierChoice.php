@@ -12,7 +12,9 @@ class CarrierChoice
 {
     /** @var  string */
     public $name;
+    /** @var   */
     public $rate_units;
+    /** @var array  */
     public $travel_types = [];
 
     /**
